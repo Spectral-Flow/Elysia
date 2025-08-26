@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elysia - Your AI Concierge</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏢 Elysia</h1>
+            <p>Your AI Apartment Concierge</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Chat Interface -->
+            <div class="chat-section">
+                <div class="chat-header">
+                    <h2>💬 Chat with Elysia</h2>
+                    <p>Ask me anything about {{ building_name }}!</p>
+                </div>
+                
+                <div id="chatMessages" class="chat-messages">
+                    <div class="message bot-message">
+                        <div class="message-content">
+                            👋 Hello! I'm Elysia, your AI concierge for {{ building_name }}. 
+                            How can I help you today? I can assist with building information, 
+                            amenities, maintenance requests, events, and more!
+                        </div>
+                        <div class="message-time"></div>
+                    </div>
+                </div>
+                
+                <div class="chat-input">
+                    <input type="text" id="messageInput" placeholder="Type your message here..." autocomplete="off">
+                    <button id="sendButton">Send</button>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <h3>🚀 Quick Actions</h3>
+                <div class="action-buttons">
+                    <button class="action-btn" onclick="openMaintenanceModal()">
+                        🔧 Report Maintenance
+                    </button>
+                    <button class="action-btn" onclick="showEvents()">
+                        📅 View Events
+                    </button>
+                    <button class="action-btn" onclick="showBuildingInfo()">
+                        🏢 Building Info
+                    </button>
+                    <button class="action-btn" onclick="askQuickQuestion('What are the gym hours?')">
+                        💪 Gym Hours
+                    </button>
+                </div>
+            </div>
+
+            <!-- Information Panels -->
+            <div id="infoPanel" class="info-panel" style="display: none;">
+                <div class="info-content">
+                    <span class="close-btn" onclick="closeInfoPanel()">&times;</span>
+                    <div id="infoPanelContent"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Maintenance Request Modal -->
+    <div id="maintenanceModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeMaintenanceModal()">&times;</span>
+            <h3>🔧 Submit Maintenance Request</h3>
+            <form id="maintenanceForm">
+                <div class="form-group">
+                    <label for="unit">Unit Number:</label>
+                    <input type="text" id="unit" name="unit" required>
+                </div>
+                <div class="form-group">
+                    <label for="issue">Issue Type:</label>
+                    <select id="issue" name="issue" required>
+                        <option value="">Select an issue type</option>
+                        <option value="plumbing">Plumbing</option>
+                        <option value="electrical">Electrical</option>
+                        <option value="hvac">HVAC/Climate Control</option>
+                        <option value="appliance">Appliance</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="priority">Priority:</label>
+                    <select id="priority" name="priority">
+                        <option value="low">Low</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="high">High</option>
+                        <option value="urgent">Urgent</option>
+                    </select>
+                </div>
+                <button type="submit">Submit Request</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
