@@ -1,11 +1,16 @@
-import openai
+from openai import OpenAI
 from typing import Dict, List, Any
 import os
 
 class ElysiaAI:
     def __init__(self):
         self.api_key = os.environ.get("OPENAI_API_KEY")
-        openai.api_key = self.api_key
+        self.client = None
+        if self.api_key:
+            try:
+                self.client = OpenAI(api_key=self.api_key)
+            except Exception:
+                self.client = None
         self.conversation_history = []
         self.building_info = self._load_building_info()
         
@@ -28,25 +33,32 @@ class ElysiaAI:
         # Add user input to conversation history
         self.conversation_history.append({"role": "user", "content": user_input})
         
+        # If no OpenAI client available, return a fallback response
+        if not self.client:
+            return f"I'm currently in demo mode. I can help with building information! You asked: {user_input}"
+        
         # Create system message with building context
         system_message = {
             "role": "system", 
             "content": f"You are Elysia, an AI concierge for residents. You have access to the following building information: {self.building_info}"
         }
         
-        # Generate response using OpenAI's API
-        response = openai.ChatCompletion.create(
-            model="gpt-4",
-            messages=[system_message] + self.conversation_history,
-            max_tokens=150,
-            temperature=0.7
-        )
-        
-        # Extract and store assistant's response
-        assistant_response = response.choices[0].message['content']
-        self.conversation_history.append({"role": "assistant", "content": assistant_response})
-        
-        return assistant_response
+        try:
+            # Generate response using OpenAI's API
+            response = self.client.chat.completions.create(
+                model="gpt-4",
+                messages=[system_message] + self.conversation_history,
+                max_tokens=150,
+                temperature=0.7
+            )
+            
+            # Extract and store assistant's response
+            assistant_response = response.choices[0].message.content
+            self.conversation_history.append({"role": "assistant", "content": assistant_response})
+            
+            return assistant_response
+        except Exception as e:
+            return f"I'm having trouble connecting to my AI services right now. I can still help with basic building information!"
     
     def handle_maintenance_request(self, user_id: str, issue: str, location: str) -> Dict[str, Any]:
         """Create a maintenance request in the system."""
