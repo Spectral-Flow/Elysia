@@ -9,6 +9,15 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      BUILDING_NAME: ${{ secrets.BUILDING_NAME }}
+      BUILDING_ADDRESS: ${{ secrets.BUILDING_ADDRESS }}
+      BUILDING_CONTACT: ${{ secrets.BUILDING_CONTACT }}
+      SMART_HOME_API_URL: ${{ secrets.SMART_HOME_API_URL }}
+      SMART_HOME_API_KEY: ${{ secrets.SMART_HOME_API_KEY }}
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python
@@ -33,6 +42,15 @@ jobs:
     needs: test
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      BUILDING_NAME: ${{ secrets.BUILDING_NAME }}
+      BUILDING_ADDRESS: ${{ secrets.BUILDING_ADDRESS }}
+      BUILDING_CONTACT: ${{ secrets.BUILDING_CONTACT }}
+      SMART_HOME_API_URL: ${{ secrets.SMART_HOME_API_URL }}
+      SMART_HOME_API_KEY: ${{ secrets.SMART_HOME_API_KEY }}
     steps:
     - uses: actions/checkout@v3
     - name: Set up Docker Buildx
@@ -47,3 +65,12 @@ jobs:
       with:
         push: true
         tags: yourusername/elysia:latest
+        build-args: |
+          OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}
+          JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}
+          SECRET_KEY=${{ secrets.SECRET_KEY }}
+          BUILDING_NAME=${{ secrets.BUILDING_NAME }}
+          BUILDING_ADDRESS=${{ secrets.BUILDING_ADDRESS }}
+          BUILDING_CONTACT=${{ secrets.BUILDING_CONTACT }}
+          SMART_HOME_API_URL=${{ secrets.SMART_HOME_API_URL }}
+          SMART_HOME_API_KEY=${{ secrets.SMART_HOME_API_KEY }}

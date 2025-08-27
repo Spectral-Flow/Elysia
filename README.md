@@ -154,6 +154,10 @@ BUILDING_ADDRESS=123 Main Street, City, State 12345
 BUILDING_CONTACT=manager@elysiaapartments.com
 ```
 
+### GitHub Secrets Setup
+
+For CI/CD deployment, you'll need to configure GitHub secrets. See [GITHUB_SECRETS_SETUP.md](GITHUB_SECRETS_SETUP.md) for detailed instructions on setting up the required secrets for automated testing and deployment.
+
 ### Getting an OpenAI API Key
 
 1. Visit [OpenAI Platform](https://platform.openai.com/)
