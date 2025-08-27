@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
-import openai
+from openai import OpenAI
 import os
 from dotenv import load_dotenv
 import logging
@@ -20,7 +20,13 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Configure OpenAI
-openai.api_key = os.getenv('OPENAI_API_KEY')
+openai_client = None
+try:
+    api_key = os.getenv('OPENAI_API_KEY')
+    if api_key:
+        openai_client = OpenAI(api_key=api_key)
+except Exception:
+    openai_client = None
 
 # Building configuration
 BUILDING_CONFIG = {
@@ -96,10 +102,10 @@ You can help with:
 Be conversational, helpful, and personable. If you don't know something specific about the building, offer to connect them with building management."""
 
         # Check if OpenAI API key is configured
-        if not openai.api_key or openai.api_key == 'your_openai_api_key_here':
+        if not openai_client or not openai_client.api_key:
             return "I'm currently in demo mode. Please configure the OpenAI API key to enable full AI functionality. For now, I can help you with basic building information!"
 
-        response = openai.chat.completions.create(
+        response = openai_client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "system", "content": system_prompt},
