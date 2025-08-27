@@ -29,7 +29,7 @@ ENV/
 # Environment variables
 .env
 
-# IDE
+# IDE / Editor
 .vscode/
 .idea/
 *.swp
@@ -42,6 +42,11 @@ Thumbs.db
 # Logs
 *.log
 
+# Test coverage
+.coverage
+htmlcov/
+.pytest_cache/
+
 # Node.js
 node_modules/
 npm-debug.log*
@@ -52,7 +57,6 @@ yarn-error.log*
 frontend/build/
 frontend/dist/
 
-# Test coverage
-.coverage
-htmlcov/
-.pytest_cache/
+# Databases
+*.db
+*.sqlite

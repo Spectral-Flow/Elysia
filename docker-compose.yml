@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  elysia:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=production
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - BUILDING_NAME=${BUILDING_NAME:-Elysia Apartments}
+      - BUILDING_ADDRESS=${BUILDING_ADDRESS:-123 Main Street}
+      - BUILDING_CONTACT=${BUILDING_CONTACT:-manager@elysiaapartments.com}
+    volumes:
+      - ./logs:/app/logs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Future: Add database service
+  # postgres:
+  #   image: postgres:13
+  #   environment:
+  #     POSTGRES_DB: elysia
+  #     POSTGRES_USER: elysia
+  #     POSTGRES_PASSWORD: ${DB_PASSWORD}
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   restart: unless-stopped
+
+# volumes:
+#   postgres_data:
