@@ -1,20 +1,62 @@
-# Elysia - AI Apartment Concierge
-
-.env
-*.pyc
+# Python
 __pycache__/
-.pytest_cache/
-.coverage
-htmlcov/
-dist/
+*.py[cod]
+*$py.class
+*.so
+.Python
 build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
 *.egg-info/
-.DS_Store
-.vscode/
-.idea/
-node_modules/
-*.log
-*.sqlite
-*.db
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environment
 venv/
 env/
+ENV/
+
+# Environment variables
+.env
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Test coverage
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# React build
+frontend/build/
+frontend/dist/
+
+# Databases
+*.db
+*.sqlite
