@@ -1,0 +1,24 @@
+{
+  "name": "elysia",
+  "version": "1.0.0",
+  "description": "Elysia AI Concierge - Your apartment building's intelligent assistant",
+  "main": "index.js",
+  "scripts": {
+    "build": "cd frontend && npm install && npm run build",
+    "start": "cd frontend && npm start",
+    "test": "cd frontend && npm test"
+  },
+  "keywords": [
+    "ai",
+    "concierge",
+    "apartment",
+    "building",
+    "management"
+  ],
+  "author": "Spectral-Flow",
+  "license": "MIT",
+  "devDependencies": {},
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

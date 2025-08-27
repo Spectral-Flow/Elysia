@@ -1,0 +1,32 @@
+{
+  "version": 2,
+  "buildCommand": "cd frontend && npm ci && npm run build",
+  "outputDirectory": "frontend/build",
+  "installCommand": "echo 'No root dependencies to install'",
+  "functions": {
+    "api/*.py": {
+      "runtime": "python3.9"
+    }
+  },
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
+    },
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/.*",
+      "dest": "/index.html"
+    }
+  ],
+  "env": {
+    "OPENAI_API_KEY": "@openai_api_key",
+    "JWT_SECRET_KEY": "@jwt_secret_key", 
+    "SECRET_KEY": "@secret_key",
+    "BUILDING_NAME": "Elysia Apartments",
+    "BUILDING_ADDRESS": "123 Main Street, City, State 12345",
+    "BUILDING_CONTACT": "manager@elysiaapartments.com"
+  }
+}

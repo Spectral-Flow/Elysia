@@ -246,6 +246,61 @@ docker-compose down
 
 ---
 
+## ▲ Vercel Deployment
+
+Deploy Elysia to Vercel for scalable, serverless hosting with zero configuration!
+
+### Quick Deploy
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Spectral-Flow/Elysia)
+
+### Manual Deployment
+
+1. **Install Vercel CLI**:
+   ```bash
+   npm i -g vercel
+   ```
+
+2. **Deploy to Vercel**:
+   ```bash
+   vercel
+   ```
+
+3. **Set Environment Variables** in Vercel Dashboard:
+   - `OPENAI_API_KEY` - Your OpenAI API key
+   - `JWT_SECRET_KEY` - Secret for JWT tokens
+   - `SECRET_KEY` - Application secret key
+
+### Environment Variables
+
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `OPENAI_API_KEY` | OpenAI API key for AI functionality | Yes |
+| `JWT_SECRET_KEY` | Secret key for JWT authentication | Yes |
+| `SECRET_KEY` | General application secret | Yes |
+| `BUILDING_NAME` | Building name (default: "Elysia Apartments") | No |
+| `BUILDING_ADDRESS` | Building address | No |
+| `BUILDING_CONTACT` | Contact information | No |
+
+### Architecture
+
+- **Frontend**: React app served as static files
+- **Backend**: Serverless functions in `/api` directory
+- **Database**: In-memory storage (upgrade to Vercel KV for production)
+
+### API Endpoints
+
+After deployment, access your API at:
+- `https://your-app.vercel.app/api/chat`
+- `https://your-app.vercel.app/api/login`
+- `https://your-app.vercel.app/api/maintenance`
+- `https://your-app.vercel.app/api/events`
+- `https://your-app.vercel.app/api/building-info`
+
+For detailed deployment instructions, see [VERCEL_DEPLOYMENT.md](VERCEL_DEPLOYMENT.md).
+
+---
+
 ## 🔧 Development
 
 ### Setting Up Development Environment
