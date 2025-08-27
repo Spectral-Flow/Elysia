@@ -4,9 +4,9 @@ import sys
 import os
 
 # Add parent directory to path for imports
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src', 'backend'))
 
-from backend.app import app
+from app import app
 
 @pytest.fixture
 def client():
@@ -15,42 +15,46 @@ def client():
     with app.test_client() as client:
         yield client
 
-def test_login_endpoint(client):
-    """Test the login endpoint."""
-    response = client.post('/api/login', 
-                          json={'email': 'test@example.com', 'password': 'testpass'},
+def test_chat_endpoint(client):
+    """Test the chat endpoint with a message."""
+    response = client.post('/api/chat', 
+                          json={'message': 'Hello, what are the gym hours?'},
                           content_type='application/json')
     
     assert response.status_code == 200
     data = json.loads(response.data)
-    assert 'token' in data
+    assert 'response' in data
+    assert len(data['response']) > 0
 
-def test_login_missing_credentials(client):
-    """Test login with missing credentials."""
-    response = client.post('/api/login', 
-                          json={'email': 'test@example.com'},
-                          content_type='application/json')
-    
-    assert response.status_code == 401
-    data = json.loads(response.data)
-    assert data['message'] == 'Could not verify'
-
-def test_chat_without_token(client):
-    """Test chat endpoint without authentication token."""
+def test_chat_endpoint_empty_message(client):
+    """Test chat endpoint with empty message."""
     response = client.post('/api/chat', 
-                          json={'message': 'Hello'},
+                          json={'message': ''},
                           content_type='application/json')
     
-    assert response.status_code == 401
+    assert response.status_code == 400
     data = json.loads(response.data)
-    assert data['message'] == 'Token is missing!'
+    assert 'error' in data
+    assert data['error'] == 'No message provided'
 
-def test_maintenance_without_token(client):
-    """Test maintenance endpoint without authentication token."""
+def test_maintenance_endpoint(client):
+    """Test maintenance endpoint."""
     response = client.post('/api/maintenance', 
-                          json={'issue': 'Leak', 'location': 'Kitchen'},
+                          json={'issue': 'Leaky faucet', 'location': 'Kitchen', 'unit': '101'},
                           content_type='application/json')
     
-    assert response.status_code == 401
+    assert response.status_code == 200
     data = json.loads(response.data)
-    assert data['message'] == 'Token is missing!'
+    assert data['success'] == True
+    assert 'request_id' in data
+    assert 'message' in data
+
+def test_building_info_endpoint(client):
+    """Test building info endpoint."""
+    response = client.get('/api/building-info')
+    
+    assert response.status_code == 200
+    data = json.loads(response.data)
+    assert 'name' in data
+    assert 'amenities' in data
+    assert 'policies' in data

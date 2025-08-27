@@ -15,11 +15,11 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy application code
-# (merge both styles — either repo has /backend or /src/backend)
-COPY backend/ ./backend/
-COPY ai-core/ ./ai-core/
+COPY ai_core/ ./ai_core/
 COPY integrations/ ./integrations/
 COPY src/ ./src/
+COPY templates/ ./templates/
+COPY static/ ./static/
 
 # Create logs directory
 RUN mkdir -p logs
