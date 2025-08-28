@@ -2,12 +2,13 @@
   "version": 2,
   "buildCommand": "cd frontend && npm ci && npm run build",
   "outputDirectory": "frontend/build",
-  "installCommand": "echo 'No root dependencies to install'",
+  "installCommand": "npm --version",
   "functions": {
     "api/*.py": {
       "runtime": "python3.9"
     }
   },
+  "framework": "create-react-app",
   "routes": [
     {
       "src": "/api/(.*)",

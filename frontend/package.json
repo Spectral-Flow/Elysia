@@ -21,6 +21,10 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0"
   },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
   "browserslist": {
     "production": [
       ">0.2%",
