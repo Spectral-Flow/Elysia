@@ -29,7 +29,6 @@ yarn-error.log*
 Thumbs.db
 
 # Build artifacts
-frontend/build/
 dist/
 
 # Docker
