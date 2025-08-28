@@ -2,13 +2,12 @@
   "version": 2,
   "buildCommand": "cd frontend && npm ci && npm run build",
   "outputDirectory": "frontend/build",
-  "installCommand": "npm --version",
+  "framework": "create-react-app",
   "functions": {
     "api/*.py": {
       "runtime": "python3.9"
     }
   },
-  "framework": "create-react-app",
   "routes": [
     {
       "src": "/api/(.*)",
@@ -18,7 +17,7 @@
       "handle": "filesystem"
     },
     {
-      "src": "/.*",
+      "src": "/(.*)",
       "dest": "/index.html"
     }
   ],
